@@ -1,0 +1,7 @@
+# BUILD IMAGE
+docker build -t myubuntu:1.0.0 .
+
+
+# RUN CONTAINER
+docker run -it --name myubuntu myubuntu:1.0.0 /bin/bash
+

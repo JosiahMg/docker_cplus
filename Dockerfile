@@ -1,7 +1,5 @@
 FROM debian:bullseye-slim
 
-#ENV PATH /usr/local/bin:$PATH
-
 
 RUN set -eux; \
 	apt-get update; \
@@ -10,6 +8,7 @@ RUN set -eux; \
 		wget \
 		cmake \
 		libssl-dev \
+        libworkflow-dev \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
