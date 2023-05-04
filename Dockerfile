@@ -1,5 +1,8 @@
 FROM debian:bullseye-slim
 
+ENV HOME /root
+WORKDIR $HOME
+
 RUN sed -i s/deb.debian.org/mirrors.aliyun.com/g /etc/apt/sources.list
 
 RUN set -eux; \
@@ -9,12 +12,17 @@ RUN set -eux; \
 		wget \
 		cmake \
 		libssl-dev \
-        libworkflow-dev \
+        git \
+        vim \
+        curl \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-ENV HOME /root
-WORKDIR $HOME
+RUN git clone https://gitee.com/sogou/workflow \
+    && cd workflow \
+    && make \
+    && cd tutorial \
+    && make
 
-EXPOSE 22
-CMD ["bash"]
+EXPOSE 8888
+CMD ["./workflow/tutorial/helloworld"]
