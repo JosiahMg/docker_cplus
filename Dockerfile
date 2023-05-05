@@ -4,6 +4,9 @@ ENV HOME /root
 WORKDIR $HOME
 
 RUN sed -i s/deb.debian.org/mirrors.aliyun.com/g /etc/apt/sources.list
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
+
 
 RUN set -eux; \
 	apt-get update; \
@@ -18,9 +21,12 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://gitee.com/sogou/workflow \
+RUN git config --global http.sslverify false  \
+    && git config --global https.sslverify false \
+    && git clone https://gitee.com/sogou/workflow \
     && cd workflow \
     && make \
+    && make install \
     && cd tutorial \
     && make
 
