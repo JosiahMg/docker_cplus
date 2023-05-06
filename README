@@ -3,5 +3,5 @@ docker build -t myubuntu:1.0.0 .
 
 
 # RUN CONTAINER
-docker run -it --name myubuntu myubuntu:1.0.0 /bin/bash
+docker run -itd --privileged --name myubuntu -u root -p 18058:8888 myubuntu:1.0.0
 
